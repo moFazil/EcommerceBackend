@@ -12,32 +12,32 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="item")
+@Table(name = "item")
 public class OrderItem {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	private Order order;
-	
+
 	@ManyToOne
 	private Product product;
-	
+
 	private String size;
-	
+
 	private int quantity;
-	
+
 	private int price;
-	
+
 	private int discountedPrice;
-	
+
 	private Long userId;
-	
+
 	private LocalDateTime deliveryDate;
-	
+
 	public OrderItem() {
 		// TODO Auto-generated constructor stub
 	}

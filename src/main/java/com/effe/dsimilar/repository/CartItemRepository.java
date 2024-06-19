@@ -9,7 +9,8 @@ import com.effe.dsimilar.model.CartItem;
 import com.effe.dsimilar.model.Product;
 
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
-	
+
 	@Query("SELECT ci From CartItem ci Where ci.cart=:cart And ci.product=:product And ci.size=:size And ci.userId=:userId")
-	public CartItem isCartItemExist(@Param("cart")Cart cart,@Param("product")Product product,@Param("size")String size,@Param("userId")Long userId);
+	public CartItem isCartItemExist(@Param("cart") Cart cart, @Param("product") Product product,
+			@Param("size") String size, @Param("userId") Long userId);
 }

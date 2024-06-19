@@ -2,9 +2,9 @@ package com.effe.dsimilar.response;
 
 public class ApiResponse {
 	private String message;
-    private Boolean status;
-    
-    public ApiResponse() {
+	private Boolean status;
+
+	public ApiResponse() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -29,5 +29,5 @@ public class ApiResponse {
 	public void setStatus(Boolean status) {
 		this.status = status;
 	}
-    
+
 }

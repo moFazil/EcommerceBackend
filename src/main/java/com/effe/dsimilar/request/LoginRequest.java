@@ -4,7 +4,7 @@ public class LoginRequest {
 
 	private String email;
 	private String password;
-	
+
 	public LoginRequest() {
 		// TODO Auto-generated constructor stub
 	}
@@ -24,5 +24,5 @@ public class LoginRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 }

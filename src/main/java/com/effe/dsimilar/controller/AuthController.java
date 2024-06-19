@@ -27,7 +27,7 @@ import com.effe.dsimilar.service.customUserServiceImplementation;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-	 
+
 	@Autowired
 	private UserRepository userRepository;
 	@Autowired
@@ -38,86 +38,86 @@ public class AuthController {
 	private customUserServiceImplementation customUserService;
 	@Autowired
 	private CartService cartService;
-	
-	public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,customUserServiceImplementation customUserService,
-			JwtProvider jwtProvider,CartService cartService) {
-		this.userRepository=userRepository;
-		this.passwordEncoder=passwordEncoder;
-		this.customUserService=customUserService;
-		this.jwtProvider=jwtProvider;
-		this.cartService=cartService;
-		
+
+	public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder,
+			customUserServiceImplementation customUserService, JwtProvider jwtProvider, CartService cartService) {
+		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
+		this.customUserService = customUserService;
+		this.jwtProvider = jwtProvider;
+		this.cartService = cartService;
+
 	}
-	
+
 	@PostMapping("/signup")
 	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
-	    String email = user.getEmail();
-	    String password = user.getPassword();
-	    String firstName = user.getFirstName();
-	    String lastName = user.getLastName();
+		String email = user.getEmail();
+		String password = user.getPassword();
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
 
-	    System.out.println("Received User Details: " + email + " " + firstName + " " + lastName);
+		System.out.println("Received User Details: " + email + " " + firstName + " " + lastName);
 
-	    User isEmailExist = userRepository.findByEmail(email);
-	    if (isEmailExist != null) {
-	        throw new UserException("Email Is Already Used With Another Account");
-	    }
+		User isEmailExist = userRepository.findByEmail(email);
+		if (isEmailExist != null) {
+			throw new UserException("Email Is Already Used With Another Account");
+		}
 
-	    User createdUser = new User();
-	    createdUser.setEmail(email);
-	    createdUser.setPassword(passwordEncoder.encode(password));
-	    createdUser.setFirstName(firstName);
-	    createdUser.setLastName(lastName);
-	    
-	    System.out.println("Saving User: " + createdUser);
+		User createdUser = new User();
+		createdUser.setEmail(email);
+		createdUser.setPassword(passwordEncoder.encode(password));
+		createdUser.setFirstName(firstName);
+		createdUser.setLastName(lastName);
 
-	    User savedUser = userRepository.save(createdUser);
-	    
-	    System.out.println("Saved User: " + savedUser);
+		System.out.println("Saving User: " + createdUser);
 
-	    Cart cart = cartService.createCart(savedUser);
+		User savedUser = userRepository.save(createdUser);
 
-	    Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(), savedUser.getPassword());
-	    SecurityContextHolder.getContext().setAuthentication(authentication);
-	    String token = jwtProvider.generateToken(authentication);
+		System.out.println("Saved User: " + savedUser);
 
-	    AuthResponse authResponse = new AuthResponse();
-	    authResponse.setJwt(token);
-	    authResponse.setMessage("Signup Success");
+		Cart cart = cartService.createCart(savedUser);
 
-	    return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
+		Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(),
+				savedUser.getPassword());
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String token = jwtProvider.generateToken(authentication);
+
+		AuthResponse authResponse = new AuthResponse();
+		authResponse.setJwt(token);
+		authResponse.setMessage("Signup Success");
+
+		return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
 	}
 
-	
 	@PostMapping("/signin")
-	public ResponseEntity<AuthResponse>LoginUserHandler(@RequestBody LoginRequest loginRequest){
-		
+	public ResponseEntity<AuthResponse> LoginUserHandler(@RequestBody LoginRequest loginRequest) {
+
 		String userName = loginRequest.getEmail();
 		String password = loginRequest.getPassword();
-		
-		Authentication authentication = authenticate(userName,password);
+
+		Authentication authentication = authenticate(userName, password);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+
 		String token = jwtProvider.generateToken(authentication);
-		 
+
 		AuthResponse authResponse = new AuthResponse();
-		 authResponse.setJwt(token);
-		 authResponse.setMessage("LogIn Success");
-		 
-		 return new ResponseEntity<AuthResponse>(authResponse,HttpStatus.CREATED);
+		authResponse.setJwt(token);
+		authResponse.setMessage("LogIn Success");
+
+		return new ResponseEntity<AuthResponse>(authResponse, HttpStatus.CREATED);
 	}
 
 	private Authentication authenticate(String userName, String password) {
 		UserDetails userDetails = customUserService.loadUserByUsername(userName);
-		
-		if(userName==null) {
+
+		if (userName == null) {
 			throw new BadCredentialsException("Invalid Username");
 		}
-		
-		if(!passwordEncoder.matches(password, userDetails.getPassword())) {
+
+		if (!passwordEncoder.matches(password, userDetails.getPassword())) {
 			throw new BadCredentialsException("Invalid Password");
 		}
-		
-		return new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+
+		return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 	}
 }

@@ -13,24 +13,24 @@ public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	private Cart cart;
-	
+
 	@ManyToOne
 	private Product product;
-	
+
 	private String size;
-	
+
 	private int quantity;
-	
+
 	private Integer price;
-	
+
 	private int discountedPrice;
-	
+
 	private Long userId;
-	
+
 	public CartItem() {
 		// TODO Auto-generated constructor stub
 	}
@@ -98,6 +98,5 @@ public class CartItem {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
+
 }

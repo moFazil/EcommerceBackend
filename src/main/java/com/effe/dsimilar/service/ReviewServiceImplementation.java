@@ -15,24 +15,24 @@ import com.effe.dsimilar.request.ReviewRequest;
 @Service
 public class ReviewServiceImplementation implements ReviewService {
 
-	private ReviewRepository reviewRepository;	
+	private ReviewRepository reviewRepository;
 	private ProductService productService;
-	
-	public ReviewServiceImplementation(ReviewRepository reviewRepository,ProductService productService) {
-		this.reviewRepository=reviewRepository;
-		this.productService=productService;
+
+	public ReviewServiceImplementation(ReviewRepository reviewRepository, ProductService productService) {
+		this.reviewRepository = reviewRepository;
+		this.productService = productService;
 	}
-	
+
 	@Override
 	public Review createReview(ReviewRequest req, User user) throws ProductException {
 		Product product = productService.findProductById(req.getProductId());
-		
+
 		Review review = new Review();
 		review.setUser(user);
 		review.setProduct(product);
 		review.setReview(req.getReview());
 		review.setCreatedAt(LocalDateTime.now());
-		
+
 		return reviewRepository.save(review);
 	}
 

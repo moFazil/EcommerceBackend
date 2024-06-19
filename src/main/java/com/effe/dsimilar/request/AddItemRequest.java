@@ -1,12 +1,12 @@
 package com.effe.dsimilar.request;
 
 public class AddItemRequest {
-	
+
 	private Long productId;
 	private String size;
 	private int quantity;
 	private Integer price;
-	
+
 	public AddItemRequest() {
 		// TODO Auto-generated constructor stub
 	}
@@ -42,5 +42,5 @@ public class AddItemRequest {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
-	
+
 }

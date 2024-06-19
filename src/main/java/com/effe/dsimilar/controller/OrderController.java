@@ -27,42 +27,42 @@ public class OrderController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private OrderService orderService;
-	
+
 	@PostMapping("/")
 	public ResponseEntity<Order> createOrder(@RequestBody Address shippingAddress,
-			@RequestHeader("Authorization")String jwt
-			) throws UserException{
-		
+			@RequestHeader("Authorization") String jwt) throws UserException {
+
 		User user = userService.findUserProfileByJwt(jwt);
-		
+
 		Order order = orderService.createOrder(user, shippingAddress);
-		
-		System.out.println("Order"+order);
-		
-		return new ResponseEntity<Order>(order,HttpStatus.CREATED);
+
+		System.out.println("Order" + order);
+
+		return new ResponseEntity<Order>(order, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/user")
-	public ResponseEntity<List<Order>> userOrderHistory(@RequestHeader("Authorization")String jwt) throws UserException{
-		
+	public ResponseEntity<List<Order>> userOrderHistory(@RequestHeader("Authorization") String jwt)
+			throws UserException {
+
 		User user = userService.findUserProfileByJwt(jwt);
-		
+
 		List<Order> order = orderService.usersOrderHistory(user.getId());
-		
-		return new ResponseEntity<>(order,HttpStatus.CREATED);
+
+		return new ResponseEntity<>(order, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/{Id}")
-	public ResponseEntity<Order> findOrderById(@PathVariable("Id")Long orderId,
-			@RequestHeader("Authorization")String jwt)throws UserException,OrderException{
-		
+	public ResponseEntity<Order> findOrderById(@PathVariable("Id") Long orderId,
+			@RequestHeader("Authorization") String jwt) throws UserException, OrderException {
+
 		User user = userService.findUserProfileByJwt(jwt);
-		
+
 		Order order = orderService.findOrderById(orderId);
-		
-		return new ResponseEntity<>(order,HttpStatus.ACCEPTED);
+
+		return new ResponseEntity<>(order, HttpStatus.ACCEPTED);
 	}
 }

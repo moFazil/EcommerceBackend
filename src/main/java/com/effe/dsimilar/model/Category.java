@@ -12,19 +12,19 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @NotNull(message = "Category name must not be null")
-    @Size(max = 50)
-    private String name;
+	@NotNull(message = "Category name must not be null")
+	@Size(max = 50)
+	private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_category_id")
-    private Category parentCategory;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "parent_category_id")
+	private Category parentCategory;
 
-    private int level;
+	private int level;
 
 	public Category() {
 		// TODO Auto-generated constructor stub
@@ -69,5 +69,5 @@ public class Category {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
+
 }

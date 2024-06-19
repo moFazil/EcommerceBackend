@@ -8,8 +8,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.effe.dsimilar.model.Review;
 
-public interface ReviewRepository extends JpaRepository<Review, Long>{
-	
+public interface ReviewRepository extends JpaRepository<Review, Long> {
+
 	@Query("SELECT r From Review r Where r.product.id=:productId")
-	public List<Review> getAllProductsReview(@Param("productId")Long productId);
+	public List<Review> getAllProductsReview(@Param("productId") Long productId);
 }

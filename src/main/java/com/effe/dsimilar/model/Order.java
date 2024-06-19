@@ -17,50 +17,50 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="orderBy")
+@Table(name = "orderBy")
 public class Order {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="order_id")
+
+	@Column(name = "order_id")
 	private String orderId;
-	
+
 	@ManyToOne
 	private User user;
-	
-	@OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
-	private List<OrderItem>orderitems=new ArrayList<>();
-	
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private List<OrderItem> orderitems = new ArrayList<>();
+
 	private LocalDateTime orderDate;
-	
+
 	private LocalDateTime deliverDate;
-	
+
 	@OneToOne
 	private Address shippingAddress;
-	
+
 	@Embedded
-	private PaymentDetails paymentdetails=new PaymentDetails();
-	
+	private PaymentDetails paymentdetails = new PaymentDetails();
+
 	private double totalPrice;
-	
+
 	private int totalDiscountedPrice;
-	
+
 	private int discount;
-	
+
 	private String orderStatus;
-	
+
 	private int totalItem;
-	
+
 	private LocalDateTime createdAt;
-	
+
 	public Order() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public Order(Long id, String orderId, User user, List<OrderItem> orderitems, LocalDateTime orderDate,
-			LocalDateTime deliverDate, Address shippingAddress, PaymentDetails payementdetails, double totalPrice,
+			LocalDateTime deliverDate, Address shippingAddress, PaymentDetails paymentdetails, double totalPrice,
 			int totalDiscountedPrice, int discount, String orderStatus, int totalItem, LocalDateTime createAt) {
 		super();
 		this.id = id;
@@ -135,12 +135,12 @@ public class Order {
 		this.shippingAddress = shippingAddress;
 	}
 
-	public PaymentDetails getPayementdetails() {
+	public PaymentDetails getPaymentdetails() {
 		return paymentdetails;
 	}
 
-	public void setPayementdetails(PaymentDetails payementdetails) {
-		this.paymentdetails = payementdetails;
+	public void setPaymentdetails(PaymentDetails paymentdetails) {
+		this.paymentdetails = paymentdetails;
 	}
 
 	public double getTotalPrice() {
@@ -190,6 +190,5 @@ public class Order {
 	public void setCreateAt(LocalDateTime createAt) {
 		this.createdAt = createAt;
 	}
-	
-}
 
+}

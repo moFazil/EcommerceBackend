@@ -15,37 +15,38 @@ import com.effe.dsimilar.repository.CartRepository;
 
 @Service
 public class CartItemServiceImplementation implements CartItemService {
-	
+
 	private CartItemRepository cartItemRepository;
 	private UserService userService;
 	private CartRepository cartRepository;
-	
-	public CartItemServiceImplementation(CartItemRepository cartItemRepository,UserService userService,CartRepository cartRepository) {
-		this.cartItemRepository=cartItemRepository;
-		this.userService=userService;
-		this.cartRepository=cartRepository;
+
+	public CartItemServiceImplementation(CartItemRepository cartItemRepository, UserService userService,
+			CartRepository cartRepository) {
+		this.cartItemRepository = cartItemRepository;
+		this.userService = userService;
+		this.cartRepository = cartRepository;
 	}
 
 	@Override
 	public CartItem createCartItem(CartItem cartItem) {
 		cartItem.setQuantity(1);
-		cartItem.setPrice(cartItem.getProduct().getPrice()*cartItem.getQuantity());
-		cartItem.setDiscountedPrice(cartItem.getProduct().getPrice()*cartItem.getQuantity());
-		
+		cartItem.setPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity());
+		cartItem.setDiscountedPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity());
+
 		CartItem createdCartItem = cartItemRepository.save(cartItem);
-		
+
 		return createdCartItem;
 	}
 
 	@Override
 	public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws CartItemException, UserException {
-		CartItem item=findCartItemById(id);
+		CartItem item = findCartItemById(id);
 		User user = userService.findUserById(item.getUserId());
-		
-		if(user.getId().equals(userId)) {
+
+		if (user.getId().equals(userId)) {
 			item.setQuantity(cartItem.getQuantity());
-			item.setPrice(item.getQuantity()*item.getProduct().getPrice());
-			item.setDiscountedPrice(item.getProduct().getDiscountPrice()*item.getQuantity());
+			item.setPrice(item.getQuantity() * item.getProduct().getPrice());
+			item.setDiscountedPrice(item.getProduct().getDiscountPrice() * item.getQuantity());
 		}
 		return cartItemRepository.save(item);
 	}
@@ -59,15 +60,14 @@ public class CartItemServiceImplementation implements CartItemService {
 	@Override
 	public void removeCartItem(Long userId, Long cartItemId) throws CartItemException, UserException {
 		CartItem cartItem = findCartItemById(cartItemId);
-		
+
 		User user = userService.findUserById(cartItem.getUserId());
-		
+
 		User reqUser = userService.findUserById(userId);
-		
-		if(user.getId().equals(reqUser.getId())) {
+
+		if (user.getId().equals(reqUser.getId())) {
 			cartItemRepository.deleteById(cartItemId);
-		}
-		else {
+		} else {
 			throw new UserException("You Can't Remove Another Users Item");
 		}
 	}
@@ -75,11 +75,11 @@ public class CartItemServiceImplementation implements CartItemService {
 	@Override
 	public CartItem findCartItemById(Long cartItemId) throws CartItemException {
 		Optional<CartItem> opt = cartItemRepository.findById(cartItemId);
-		
-		if(opt.isPresent()) {
+
+		if (opt.isPresent()) {
 			return opt.get();
 		}
-		throw new CartItemException("Item Not Found With The Id : "+cartItemId);
+		throw new CartItemException("Item Not Found With The Id : " + cartItemId);
 	}
 
 }

@@ -9,6 +9,7 @@ import com.effe.dsimilar.request.RatingRequest;
 
 public interface RatingService {
 
-	public Rating createRating(RatingRequest req,User user) throws ProductException;
+	public Rating createRating(RatingRequest req, User user) throws ProductException;
+
 	public List<Rating> getProductsRating(Long productId);
 }

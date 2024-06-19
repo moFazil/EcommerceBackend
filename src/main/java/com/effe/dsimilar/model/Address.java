@@ -16,32 +16,32 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column(name="street_address")
-	private String streeAddress;
-	
-	@Column(name="city")
+
+	@Column(name = "street_address")
+	private String streetAddress;
+
+	@Column(name = "city")
 	private String city;
-	
-	@Column(name="state")
+
+	@Column(name = "state")
 	private String state;
-	
-	@Column(name="zip_code")
+
+	@Column(name = "zip_code")
 	private String zipCode;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private User user;
-	
+
 	private String mobile;
-	
+
 	public Address() {
 		// TODO Auto-generated constructor stub
 	}
@@ -70,12 +70,12 @@ public class Address {
 		this.lastName = lastName;
 	}
 
-	public String getStreeAddress() {
-		return streeAddress;
+	public String getStreetAddress() {
+		return streetAddress;
 	}
 
-	public void setStreeAddress(String streeAddress) {
-		this.streeAddress = streeAddress;
+	public void setStreetAddress(String streeAddress) {
+		this.streetAddress = streeAddress;
 	}
 
 	public String getCity() {
@@ -124,7 +124,7 @@ public class Address {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.streeAddress = streeAddress;
+		this.streetAddress = streeAddress;
 		this.city = city;
 		this.state = state;
 		this.zipCode = zipCode;

@@ -18,26 +18,26 @@ import jakarta.persistence.OneToOne;
 public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name = "id")
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id",nullable=false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
-	
-	@OneToMany(mappedBy = "cart",cascade = CascadeType.ALL,orphanRemoval = true)
+
+	@OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CartItem> cartItem = new HashSet<>();
-	
-	@Column(name="total_price")
+
+	@Column(name = "total_price")
 	private double totalPrice;
-	
-	@Column(name="total_item")
+
+	@Column(name = "total_item")
 	private int totalItem;
-	
+
 	private int totalDiscountedPrice;
-	
+
 	private int discount;
-	
+
 	public Cart() {
 		// TODO Auto-generated constructor stub
 	}
@@ -97,5 +97,5 @@ public class Cart {
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	
+
 }

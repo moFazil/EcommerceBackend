@@ -3,7 +3,7 @@ package com.effe.dsimilar.request;
 public class ReviewRequest {
 
 	private Long productId;
-	
+
 	private String review;
 
 	public Long getProductId() {

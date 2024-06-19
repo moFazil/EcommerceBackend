@@ -1,25 +1,24 @@
 package com.effe.dsimilar.model;
 
 public class PaymentDetails {
-	
+
 	private String paymentMethod;
-	
+
 	private String paymentStatus;
-	
+
 	private String paymentId;
-	
+
 	private String razorpayPaymentLinkId;
-	
+
 	private String razorpayPaymentLinkReferenceId;
-	
+
 	private String razorpayPaymentLinkStatus;
-	
+
 	private String razorpayPaymentId;
-	
+
 	public PaymentDetails() {
 		// TODO Auto-generated constructor stub
 	}
-	
 
 	public PaymentDetails(String paymentMethod, String paymentStatus, String paymentId, String razorpayPaymentLinkId,
 			String razorpayPaymentLinkReferenceId, String razorpayPaymentLinkStatus, String razorpayPaymentId) {
@@ -32,7 +31,6 @@ public class PaymentDetails {
 		this.razorpayPaymentLinkStatus = razorpayPaymentLinkStatus;
 		this.razorpayPaymentId = razorpayPaymentId;
 	}
-
 
 	public String getPaymentMethod() {
 		return paymentMethod;
@@ -89,5 +87,5 @@ public class PaymentDetails {
 	public void setRazorpayPaymentId(String razorpayPaymentId) {
 		this.razorpayPaymentId = razorpayPaymentId;
 	}
-	
+
 }

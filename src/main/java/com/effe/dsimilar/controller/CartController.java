@@ -25,32 +25,32 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping("/")
-	public ResponseEntity<Cart> findUserCart(@RequestHeader("Authorization")String jwt)throws UserException{
-		
+	public ResponseEntity<Cart> findUserCart(@RequestHeader("Authorization") String jwt) throws UserException {
+
 		User user = userService.findUserProfileByJwt(jwt);
-		
+
 		Cart cart = cartService.findUserCart(user.getId());
-		
-		return new ResponseEntity<Cart>(cart,HttpStatus.OK);
+
+		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
-	
+
 	@PutMapping("/add")
 	public ResponseEntity<ApiResponse> addItemToCart(@RequestBody AddItemRequest req,
-			@RequestHeader("Authorization")String jwt) throws UserException,ProductException{
-		
+			@RequestHeader("Authorization") String jwt) throws UserException, ProductException {
+
 		User user = userService.findUserProfileByJwt(jwt);
-		
+
 		cartService.addCartItem(user.getId(), req);
-		
+
 		ApiResponse res = new ApiResponse();
 		res.setMessage("Item Added To Cart");
 		res.setStatus(true);
-		
-		return new ResponseEntity<>(res,HttpStatus.OK);
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 }
